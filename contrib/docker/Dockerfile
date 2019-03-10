@@ -64,6 +64,7 @@ RUN cd superset/assets \
     && rm -rf node_modules
 
 COPY contrib/docker/docker-init.sh .
+COPY contrib/docker/create-link.sh .
 COPY contrib/docker/docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 

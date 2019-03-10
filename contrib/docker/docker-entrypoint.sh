@@ -26,6 +26,8 @@ elif [ "$SUPERSET_ENV" = "development" ]; then
     (cd superset/assets/ && npm run dev) &
     FLASK_ENV=development FLASK_APP=superset:app flask run -p 8088 --with-threads --reload --debugger --host=0.0.0.0
 elif [ "$SUPERSET_ENV" = "production" ]; then
+    ./create-link.sh
+
     celery worker --app=superset.sql_lab:celery_app --pool=gevent -Ofair &
     gunicorn --bind  0.0.0.0:8088 \
         --workers $((2 * $(getconf _NPROCESSORS_ONLN) + 1)) \
